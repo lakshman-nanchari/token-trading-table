@@ -51,6 +51,8 @@ export default function TableHeader({
         </Tooltip>
         </th>
 
+        <th className="px-4 py-3 w-[5%]"></th>
+
       </tr>
     </thead>
   );

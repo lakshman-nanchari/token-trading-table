@@ -1,4 +1,6 @@
 import { Token } from "@/types/token";
+import RowActions from "./RowActions";
+
 
 interface Props {
     token: Token;
@@ -30,6 +32,14 @@ export default function TokenRow({token}: Props) {
             <td className="px-4 py-3 text-right w-[20%]">
                 ${token.volume.toLocaleString()}
             </td>
+
+            <td className="px-4 py-3 text-right w-[5%]">
+                <RowActions
+                    onView={() => alert(`Viewing ${token.name}`)}
+                    onCopy={() => navigator.clipboard.writeText(token.symbol)}
+                />
+            </td>
+
         </tr>
     );
 }

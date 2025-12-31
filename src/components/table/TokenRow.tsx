@@ -5,7 +5,7 @@ interface Props {
 }
 
 export default function TokenRow({token}: Props) {
-    const isPositive = token.chnage24h >= 0;
+    const isPositive = token.change24h >= 0;
 
     return (
         <tr className="border-t border-white/10 hover:bg-white/5 transition">
@@ -24,7 +24,7 @@ export default function TokenRow({token}: Props) {
                 }`}
             >
                 {isPositive ? "+" : "" }
-                {token.chnage24h}%
+                {token.change24h}%
             </td>
 
             <td className="px-4 py-3 text-right w-[20%]">

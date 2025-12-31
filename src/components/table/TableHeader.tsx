@@ -1,3 +1,5 @@
+import Tooltip from "@/components/ui/Tooltip";
+
 interface Props {
   sortKey: "price" | "change24h" | "volume";
   sortOrder: "asc" | "desc";
@@ -17,25 +19,38 @@ export default function TableHeader({
         </th>
 
         <th
-          className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
-          onClick={() => onSort("price")}
+        className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
+        onClick={() => onSort("price")}
         >
-          Price {sortKey === "price" && (sortOrder === "asc" ? "↑" : "↓")}
+        <Tooltip content="Current token price">
+            <span>
+            Price {sortKey === "price" && (sortOrder === "asc" ? "↑" : "↓")}
+            </span>
+        </Tooltip>
         </th>
 
         <th
-          className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
-          onClick={() => onSort("change24h")}
+        className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
+        onClick={() => onSort("change24h")}
         >
-          24h % {sortKey === "change24h" && (sortOrder === "asc" ? "↑" : "↓")}
+        <Tooltip content="Percentage change in last 24 hours">
+            <span>
+            24h % {sortKey === "change24h" && (sortOrder === "asc" ? "↑" : "↓")}
+            </span>
+        </Tooltip>
         </th>
 
         <th
-          className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
-          onClick={() => onSort("volume")}
+        className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
+        onClick={() => onSort("volume")}
         >
-          Volume {sortKey === "volume" && (sortOrder === "asc" ? "↑" : "↓")}
+        <Tooltip content="24h trading volume">
+            <span>
+            Volume {sortKey === "volume" && (sortOrder === "asc" ? "↑" : "↓")}
+            </span>
+        </Tooltip>
         </th>
+
       </tr>
     </thead>
   );

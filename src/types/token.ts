@@ -5,7 +5,7 @@ export interface Token {
     name: string;
     symbol: string;
     price: number;
-    chnage24h: number;
+    change24h: number;
     volume: number;
     status: TokenStatus;
 }

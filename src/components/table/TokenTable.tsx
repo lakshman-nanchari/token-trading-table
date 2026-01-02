@@ -4,6 +4,8 @@ import { useState } from "react";
 import { mockTokens } from "@/lib/mockTokens";
 import TableHeader from "./TableHeader";
 import TokenRow from "./TokenRow";
+import TokenDetailsModal from "@/components/modals/TokenDetailsModal";
+import { Token } from "@/types/token";
 import { TokenStatus } from "@/types/token";
 
 type SortKey = "price" | "change24h" | "volume";
@@ -20,6 +22,7 @@ export default function TokenTable() {
     const [activeTab, setActiveTab] = useState<TokenStatus>("NEW");
     const [sortKey, setSortKey] = useState<SortKey>("price");
     const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
+    const [selectedToken, setSelectedToken] = useState<Token | null>(null);
 
     const filteredTokens = mockTokens
         .filter((token) => token.status === activeTab)
@@ -68,11 +71,21 @@ export default function TokenTable() {
                     />
                     <tbody>
                         {filteredTokens.map((token) => (
-                            <TokenRow key={token.id} token={token}/>
+                            <TokenRow 
+                                key={token.id} 
+                                token={token} 
+                                onView={(token) => setSelectedToken(token)}
+                            />
                         ))}
                     </tbody>
                 </table>
             </div>   
+
+            {/*Modal*/}
+            <TokenDetailsModal 
+                token={selectedToken}
+                onClose={() => setSelectedToken(null)}
+            />
         </div>
     );
 }

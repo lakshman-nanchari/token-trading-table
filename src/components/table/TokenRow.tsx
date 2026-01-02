@@ -4,9 +4,10 @@ import RowActions from "./RowActions";
 
 interface Props {
     token: Token;
+    onView: (token: Token) => void;
 }
 
-export default function TokenRow({token}: Props) {
+export default function TokenRow({token, onView}: Props) {
     const isPositive = token.change24h >= 0;
 
     return (
@@ -35,7 +36,7 @@ export default function TokenRow({token}: Props) {
 
             <td className="px-4 py-3 text-right w-[5%]">
                 <RowActions
-                    onView={() => alert(`Viewing ${token.name}`)}
+                    onView={() => onView(token)}
                     onCopy={() => navigator.clipboard.writeText(token.symbol)}
                 />
             </td>

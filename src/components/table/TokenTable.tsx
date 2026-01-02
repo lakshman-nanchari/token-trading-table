@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mockTokens } from "@/lib/mockTokens";
 import TableHeader from "./TableHeader";
 import TokenRow from "./TokenRow";
@@ -22,9 +22,31 @@ export default function TokenTable() {
     const [activeTab, setActiveTab] = useState<TokenStatus>("NEW");
     const [sortKey, setSortKey] = useState<SortKey>("price");
     const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
-    const [selectedToken, setSelectedToken] = useState<Token | null>(null);
+    const [tokens, setTokens] = useState(mockTokens);
 
-    const filteredTokens = mockTokens
+    const [selectedToken, setSelectedToken] = useState<Token | null>(null);
+    
+
+    useEffect(() => {
+    const interval = setInterval(() => {
+    setTokens((prev) =>
+        prev.map((token) => {
+        const change = (Math.random() - 0.5) * 5;
+        const newPrice = +(token.price + change).toFixed(2);
+
+        return {
+            ...token,
+            price: newPrice,
+            change24h: +(token.change24h + change / 10).toFixed(2),
+            };
+         })
+        );
+        }, 1500);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const filteredTokens = tokens
         .filter((token) => token.status === activeTab)
         .sort((a, b) => {
             const valueA = a[sortKey];

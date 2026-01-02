@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Token } from "@/types/token";
 import RowActions from "./RowActions";
 
@@ -9,6 +10,14 @@ interface Props {
 
 export default function TokenRow({token, onView}: Props) {
     const isPositive = token.change24h >= 0;
+    const [flash, setFlash] = useState<"up" | "down" | null>(null);
+
+    useEffect(() => {
+        setFlash(token.change24h >= 0 ? "up" : "down");
+
+        const timeout = setTimeout(() => setFlash(null), 300);
+        return () => clearTimeout(timeout);
+    }, [token.price]);
 
     return (
         <tr className="border-t border-white/10 hover:bg-white/5 transition">
@@ -17,9 +26,18 @@ export default function TokenRow({token, onView}: Props) {
                 <div className="text-ts text-gray-400">{token.symbol}</div>
             </td>
 
-            <td className="px-4 py-3 text-right w-[20%]">
-                ${token.price.toFixed(2)}
+            <td
+                className={`px-4 py-3 text-right w-[20%] transition-colors ${
+                    flash === "up"
+                    ? "bg-green-500/20"
+                    : flash === "down"
+                    ? "bg-red-500/20"
+                    : ""
+                }`}
+            >
+            ${token.price.toFixed(2)}
             </td>
+
 
             <td
                 className={`px-4 py-3 text-right w-[20%] ${

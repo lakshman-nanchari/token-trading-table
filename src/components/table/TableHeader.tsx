@@ -1,4 +1,5 @@
 import Tooltip from "@/components/ui/Tooltip";
+import { ChevronDown } from "lucide-react";
 
 interface Props {
   sortKey: "price" | "change24h" | "volume";
@@ -12,46 +13,70 @@ export default function TableHeader({
   onSort,
 }: Props) {
   return (
-    <thead className="bg-white/5 text-xs uppercase text-gray-400">
-      <tr>
-        <th className="px-4 py-3 text-left font-normal w-[40%]">
+    <thead className="sticky top-0 z-10 bg-[#0b0f14] text-[11px] uppercase text-gray-500">
+      <tr className="h-[40px] border-b border-white/[0.06]">
+        <th className="px-4 py-3 text-left font-normal w-[38%]">
           Token
         </th>
 
         <th
-        className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
+        className="px-6 py-3 text-right font-normal w-[18%] cursor-pointer select-none"
         onClick={() => onSort("price")}
         >
         <Tooltip content="Current token price">
-            <span>
-            Price {sortKey === "price" && (sortOrder === "asc" ? "↑" : "↓")}
+            <span className="inline-flex items-center gap-1">
+              Price
+              {sortKey === "price" && (
+                <ChevronDown
+                  className={`w-3 h-3 opacity-60 transition-transform ${
+                    sortOrder === "asc" ? "rotate-180" : ""
+                  }`}
+                />
+              )}
             </span>
+
         </Tooltip>
         </th>
 
         <th
-        className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
+        className="px-6 py-3 text-right font-normal w-[14%] cursor-pointer select-none"
         onClick={() => onSort("change24h")}
         >
         <Tooltip content="Percentage change in last 24 hours">
-            <span>
-            24h % {sortKey === "change24h" && (sortOrder === "asc" ? "↑" : "↓")}
-            </span>
+          <span className="inline-flex items-center gap-1">
+            24h %
+            {sortKey === "change24h" && (
+              <ChevronDown
+                className={`w-3 h-3 opacity-60 transition-transform ${
+                  sortOrder === "asc" ? "rotate-180" : ""
+                }`}
+              />
+            )}
+          </span>
+
         </Tooltip>
         </th>
 
         <th
-        className="px-4 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
+        className="px-6 py-3 text-right font-normal w-[20%] cursor-pointer select-none"
         onClick={() => onSort("volume")}
         >
         <Tooltip content="24h trading volume">
-            <span>
-            Volume {sortKey === "volume" && (sortOrder === "asc" ? "↑" : "↓")}
-            </span>
+          <span className="inline-flex items-center gap-1">
+            Volume
+            {sortKey === "volume" && (
+              <ChevronDown
+                className={`w-3 h-3 opacity-60 transition-transform ${
+                  sortOrder === "asc" ? "rotate-180" : ""
+                }`}
+              />
+            )}
+          </span>
+
         </Tooltip>
         </th>
 
-        <th className="px-4 py-3 w-[5%]"></th>
+        <th className="px-6 py-3 w-[10%]"></th>
 
       </tr>
     </thead>

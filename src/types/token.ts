@@ -8,4 +8,5 @@ export interface Token {
     change24h: number;
     volume: number;
     status: TokenStatus;
+    icon?:string;
 }

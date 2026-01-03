@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Token } from "@/types/token";
 import RowActions from "./RowActions";
 import { formatVolume } from "@/lib/format";
+import { TOKEN_ICONS } from "@/lib/tokenIcons";
 import TokenIcon from "./TokenIcon";
 
 interface Props {
@@ -25,7 +26,10 @@ export default function TokenRow({ token, onView }: Props) {
       {/* TOKEN */}
       <td className="px-6 text-left w-[38%]">
         <div className="flex items-center gap-3">
-          <TokenIcon src={token.icon} alt={token.symbol} />
+          <TokenIcon
+            src={TOKEN_ICONS[token.symbol]}
+            alt={token.symbol}
+          />
 
           <div className="flex flex-col">
             <div className="text-[12px] font-medium text-white">
@@ -48,10 +52,7 @@ export default function TokenRow({ token, onView }: Props) {
             : ""
         }`}
       >
-        ${token.price.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 4,
-        })}
+        ${token.price.toFixed(2)}
       </td>
 
       {/* 24H CHANGE */}
@@ -61,11 +62,11 @@ export default function TokenRow({ token, onView }: Props) {
         }`}
       >
         {isPositive ? "+" : ""}
-        {token.change24h.toFixed(2)}%
+        {token.change24h}%
       </td>
 
       {/* VOLUME */}
-      <td className="px-6 text-right w-[20%] text-white">
+      <td className="px-6 text-right w-[20%]">
         {formatVolume(token.volume)}
       </td>
 
